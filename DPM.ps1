@@ -1,5 +1,4 @@
-#Created by Seba
-function Push-Scrip{
+﻿function Push-Scrip{
   param (
     [Parameter(Mandatory=$true)]$Computer,
     [Parameter(Mandatory=$true)]$RemoteComputerFolder,
