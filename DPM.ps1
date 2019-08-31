@@ -90,10 +90,13 @@
             if( (Test-Path -Path $getDefP) -and (Test-Path -Path $runner) -and (Test-Path -Path $RemoteLink) ) {
               $OutString = $Computer+",Push Succeded" 
               Out-File -Append -FilePath $OutPutFile -InputObject $OutString
-              $Date = (Get-Date).AddMinutes(30)
-              #$message = "For administrative reasons we need you to restart the computer. If the computer is not restarted before "+$Date+", it will restart automatically. Your IT Team."#
+              $Date = (Get-Date).AddMinutes(3)
+
+              $message = "For administrative reasons we need you to restart the computer. If the computer is not restarted before "+$Date+", it will restart automatically. Your IT Team."
+              Invoke-WmiMethod -Path Win32_Process -Name Create -ArgumentList "msg * $message" -ComputerName $Computer
+
               $NetComputer = "\\"+$Computer
-              #SHUTDOWN /r /f /t 1800 /m $NetComputer /c $message#
+              SHUTDOWN /r /f /t 1800 /ms $NetComputer /c $message
               
             }else{
               Out-File -Append -FilePath $OutPutFile -InputObject $Computer
@@ -169,15 +172,15 @@ function Get-Data{
 
 Clear-Host
 # User Defined Variables:
-[string]$ComputerList = 'C:\Workspace\ComputerList.csv'
-[timespan]$CyclePause = New-TimeSpan -Minutes 60 -Seconds 00
+[string]$ComputerList = 'C:\Work\ComputerList.csv'
+[timespan]$CyclePause = New-TimeSpan -Minutes 15 -Seconds 00
 [string]$RemoteComputerFolder = "c:\2r23edgtrg67u8iyhjrtegw231refqw2356yh"
 [int]$processNumberMax = 5
-[string]$DataCompilationFile = 'C:\Workspace\DataCompilation.csv'
+[string]$DataCompilationFile = 'C:\Work\DataCompilation.csv'
 
 #Internal Variables
 [bool]$TaskIsNotCompleted = $true
-[string]$OutPutFile = 'C:\Workspace\WorkInProgress.csv'
+[string]$OutPutFile = 'C:\Work\WorkInProgress.csv'
 
 do{
 
