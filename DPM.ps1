@@ -96,7 +96,8 @@
               Invoke-WmiMethod -Path Win32_Process -Name Create -ArgumentList "msg * $message" -ComputerName $Computer
 
               $NetComputer = "\\"+$Computer
-              SHUTDOWN /r /f /t 1800 /ms $NetComputer /c $message
+              #To change the time replace the number after /t for the number of SECONDS to wait until the system is shutdown
+              SHUTDOWN /r /f /t 600 /m $NetComputer /c $message
               
             }else{
               Out-File -Append -FilePath $OutPutFile -InputObject $Computer
