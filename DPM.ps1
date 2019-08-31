@@ -45,7 +45,7 @@
         $Line01 = "Set-Variable -Name DefaultPrinter -Scope Global -Force`r`n"
 
         $Line02 = "If (Test-Path `""+$RemoteComputerFolder+"\DefaultPrinter.txt`") {`r`n"
-        $Line03 = "    Remove-Item -Path `""+$RemoteComputerFolder+"`" -Force`r`n"
+        $Line03 = "    Remove-Item -Path `""+$RemoteComputerFolder+"\DefaultPrinter.txt`" -Force`r`n"
         $Line04 = "}`r`n"
         $Line05 = "`$DefaultPrinter = Get-WmiObject -Class win32_printer -ComputerName `"localhost`" -Filter `"Default='true'`" | Select-Object ShareName`r`n"
                 
