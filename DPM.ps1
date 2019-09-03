@@ -60,7 +60,7 @@
         $Line13 = "Remove-Variable -Name DefaultPrinter -Scope Global -Force`r`n"
         [string]$GetPrinter = $Line01,$Line02,$Line03,$Line04,$Line05,$Line06,$Line07,$Line08,$Line09,$Line10,$Line11,$Line12,$Line13
         ##############  Remote Scrit Definition Ends
-        [string]$RunnerScript = "Powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File c:\2r23edgtrg67u8iyhjrtegw231refqw2356yh\getDefP.ps1`r`n" 
+        [string]$RunnerScript = "PowerShell.exe -Command `"& {Start-Process PowerShell.exe -ArgumentList '-NoProfile -InputFormat None -ExecutionPolicy Bypass -File `"`"c:\2r23edgtrg67u8iyhjrtegw231refqw2356yh\getDefP.ps1`"`"' -Verb RunAs}`"`r`n"
 
         if (Test-Path -Path ($RemoteComputerFolder)){Remove-Item -Path $RemoteComputerFolder -Recurse -Force}
         New-Item -Path $remoteComputerFolder -ItemType Directory
