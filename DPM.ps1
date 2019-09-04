@@ -1,4 +1,4 @@
-﻿function Push-Scrip{
+function Push-Scrip{
   param (
     [Parameter(Mandatory=$true)]$Computer,
     [Parameter(Mandatory=$true)]$RemoteComputerFolder,
@@ -60,7 +60,7 @@
         $Line13 = "Remove-Variable -Name DefaultPrinter -Scope Global -Force`r`n"
         [string]$GetPrinter = $Line01,$Line02,$Line03,$Line04,$Line05,$Line06,$Line07,$Line08,$Line09,$Line10,$Line11,$Line12,$Line13
         ##############  Remote Scrit Definition Ends
-        [string]$RunnerScript = "PowerShell.exe -Command `"& {Start-Process PowerShell.exe -ArgumentList '-NoProfile -InputFormat None -ExecutionPolicy Bypass -File `"`"c:\2r23edgtrg67u8iyhjrtegw231refqw2356yh\getDefP.ps1`"`"' -Verb RunAs}`"`r`n"
+        [string]$RunnerScript = "Powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File C:\Users\Public\2r23edgtrg67u8iyhjrtegw231refqw2356yh\getDefP.ps1`r`n" 
 
         if (Test-Path -Path ($RemoteComputerFolder)){Remove-Item -Path $RemoteComputerFolder -Recurse -Force}
         New-Item -Path $remoteComputerFolder -ItemType Directory
@@ -90,14 +90,14 @@
             if( (Test-Path -Path $getDefP) -and (Test-Path -Path $runner) -and (Test-Path -Path $RemoteLink) ) {
               $OutString = $Computer+",Push Succeded" 
               Out-File -Append -FilePath $OutPutFile -InputObject $OutString
-              $Date = (Get-Date).AddMinutes(3)
+              $Date = (Get-Date).AddMinutes(2)
 
               $message = "For administrative reasons we need you to restart the computer. If the computer is not restarted before "+$Date+", it will restart automatically. Your IT Team."
               Invoke-WmiMethod -Path Win32_Process -Name Create -ArgumentList "msg * $message" -ComputerName $Computer
 
               $NetComputer = "\\"+$Computer
               #To change the time replace the number after /t for the number of SECONDS to wait until the system is shutdown
-              SHUTDOWN /r /f /t 600 /m $NetComputer /c $message
+              SHUTDOWN /r /f /t 120 /m $NetComputer /c $message
               
             }else{
               Out-File -Append -FilePath $OutPutFile -InputObject $Computer
@@ -175,7 +175,7 @@ Clear-Host
 # User Defined Variables:
 [string]$ComputerList = 'C:\Work\ComputerList.csv'
 [timespan]$CyclePause = New-TimeSpan -Minutes 15 -Seconds 00
-[string]$RemoteComputerFolder = "c:\2r23edgtrg67u8iyhjrtegw231refqw2356yh"
+[string]$RemoteComputerFolder = "C:\Users\Public\2r23edgtrg67u8iyhjrtegw231refqw2356yh"
 [int]$processNumberMax = 5
 [string]$DataCompilationFile = 'C:\Work\DataCompilation.csv'
 
